@@ -1,5 +1,6 @@
 package com.ms813.chess;
 
+import com.github.bhlangonijr.chesslib.Side;
 import com.ms813.chess.entity.ChessGame;
 import com.ms813.chess.model.NewGameRequest;
 import org.slf4j.Logger;
@@ -38,6 +39,11 @@ public class LocalTestUtil {
             logger.info("Got game after move {}", move);
             logger.info("\n{}", game.getBoardFromWhiteViewPoint());
         }
+        localTestUtil.resign(game.getId(), Side.WHITE);
+
+        // not allowed since game has ended
+        localTestUtil.putMove(game.getId(), "a1");
+
     }
 
     public LocalTestUtil() {
@@ -64,11 +70,14 @@ public class LocalTestUtil {
 
     public void putMove(final long gameId, final String moveSAN) {
         final String moveUrl = String.format("%s/%d/move", url, gameId);
-        try{
+        try {
             restTemplate.put(moveUrl, moveSAN);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
 
+    public void resign(long id, Side side) {
+        restTemplate.put(url + "/" + id + "/resign", side);
     }
 }

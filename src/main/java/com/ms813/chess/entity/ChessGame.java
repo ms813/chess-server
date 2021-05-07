@@ -1,6 +1,7 @@
 package com.ms813.chess.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.github.bhlangonijr.chesslib.Board;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-//avoids circular dependency during serialization
+// avoids circular dependency during serialization
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 public class ChessGame {
@@ -36,12 +37,6 @@ public class ChessGame {
     }
 
     public ChessGame(final String whitePlayerName, final String blackPlayerName) {
-        this.whitePlayerName = whitePlayerName;
-        this.blackPlayerName = blackPlayerName;
-    }
-
-    public ChessGame(final String startingFen, final String whitePlayerName, final String blackPlayerName) {
-        this.currentPositionFEN = startingFen;
         this.whitePlayerName = whitePlayerName;
         this.blackPlayerName = blackPlayerName;
     }
@@ -112,6 +107,7 @@ public class ChessGame {
     }
 
     @Transient
+    @JsonIgnore
     public String getBoardFromWhiteViewPoint() {
         final Board board = new Board();
         board.loadFromFen(currentPositionFEN);
@@ -119,6 +115,7 @@ public class ChessGame {
     }
 
     @Transient
+    @JsonIgnore
     public String getBoardFromBlackViewPoint() {
         final Board board = new Board();
         board.loadFromFen(currentPositionFEN);

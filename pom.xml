@@ -37,8 +37,14 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+
         <!--
-        Credit to this great Open Source chess library
+        Credit to this great open source chess library
             https://github.com/bhlangonijr/chesslib
         -->
         <dependency>

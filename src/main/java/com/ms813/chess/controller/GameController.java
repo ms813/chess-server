@@ -9,7 +9,6 @@ import com.ms813.chess.model.NewGameRequest;
 import com.ms813.chess.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -55,7 +54,7 @@ public class GameController {
      * @param id      the game ID on which to make the move
      * @param moveSAN a SAN string representing the move to be made
      * @return the game after the move has been made
-     * @throws IllegalMoveException    if the supplied move is illegal in the context of the game
+     * @throws IllegalMoveException    if the supplied move is illegal in the context of the game, including trying to apply moves to a finished game
      * @throws ResponseStatusException if the supplied move is syntactically incorrect
      * @throws GameNotFoundException   if the supplied game ID cannot be found
      */

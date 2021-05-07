@@ -1,14 +1,14 @@
 package com.ms813.chess.model;
 
+import java.util.Objects;
+
 public class NewGameRequest {
     private String whitePlayerName;
     private String blackPlayerName;
-    private String startingFEN;
 
-    // required for deserialization
     public NewGameRequest() {}
 
-    public NewGameRequest(String whitePlayerName, String blackPlayerName) {
+    public NewGameRequest(final String whitePlayerName, final String blackPlayerName) {
         this.whitePlayerName = whitePlayerName;
         this.blackPlayerName = blackPlayerName;
     }
@@ -29,11 +29,16 @@ public class NewGameRequest {
         this.blackPlayerName = blackPlayerName;
     }
 
-    public String getStartingFEN() {
-        return startingFEN;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewGameRequest that = (NewGameRequest) o;
+        return Objects.equals(whitePlayerName, that.whitePlayerName) && Objects.equals(blackPlayerName, that.blackPlayerName);
     }
 
-    public void setStartingFEN(String startingFEN) {
-        this.startingFEN = startingFEN;
+    @Override
+    public int hashCode() {
+        return Objects.hash(whitePlayerName, blackPlayerName);
     }
 }

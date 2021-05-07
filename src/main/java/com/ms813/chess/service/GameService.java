@@ -30,19 +30,15 @@ public class GameService {
             newGameRequest.getBlackPlayerName()
         );
 
-        if (!newGameRequest.getStartingFEN().isBlank()) {
-            chessGame.setCurrentPositionFEN(newGameRequest.getStartingFEN());
-        }
-
         return this.gameRepository.save(chessGame);
     }
 
     public ChessGame makeMove(final long gameId, final String moveSAN) {
         final ChessGame game = this.getGame(gameId);
 
-        if(game.getScore() != 0){
+        if (game.getScore() != 0) {
             // game has already ended, no more moves can be made
-            throw new IllegalMoveException("Game %s is finished, no more moves can be made");
+            throw new IllegalMoveException(String.format("Game %s is finished, no more moves can be made", gameId));
         }
 
         final Board board = new Board();
@@ -59,9 +55,7 @@ public class GameService {
         if (board.isMated()) {
             // game is over, the player who made the last move was victorious
             game.setScore(sideToMove ? -1f : 1f);
-        }
-
-        if (board.isDraw()) {
+        } else if (board.isDraw()) {
             // the game has ended in a draw
             game.setScore(0.5f);
         }
