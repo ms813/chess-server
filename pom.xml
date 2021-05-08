@@ -31,11 +31,6 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -43,15 +38,43 @@
             <version>1.5.2</version>
         </dependency>
 
-        <!--
-        Credit to this great open source chess library
-            https://github.com/bhlangonijr/chesslib
-        -->
+        <!-- https://github.com/bhlangonijr/chesslib -->
         <dependency>
             <groupId>com.github.bhlangonijr</groupId>
             <artifactId>chesslib</artifactId>
             <version>1.3.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+            cucumber0java8 is deprecated so fall back to cucumber-java :(
+            https://github.com/cucumber/cucumber-jvm/issues/2174
+         -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>6.10.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>6.10.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>6.10.3</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

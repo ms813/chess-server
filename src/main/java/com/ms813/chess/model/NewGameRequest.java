@@ -41,4 +41,12 @@ public class NewGameRequest {
     public int hashCode() {
         return Objects.hash(whitePlayerName, blackPlayerName);
     }
+
+    @Override
+    public String toString() {
+        return "NewGameRequest{" +
+            "whitePlayerName='" + whitePlayerName + '\'' +
+            ", blackPlayerName='" + blackPlayerName + '\'' +
+            '}';
+    }
 }

@@ -121,4 +121,16 @@ public class ChessGame {
         board.loadFromFen(currentPositionFEN);
         return board.toStringFromBlackViewPoint();
     }
+
+    @Override
+    public String toString() {
+        return "ChessGame{" +
+            "id=" + id +
+            ", whitePlayerName='" + whitePlayerName + '\'' +
+            ", blackPlayerName='" + blackPlayerName + '\'' +
+            ", currentPositionFEN='" + currentPositionFEN + '\'' +
+            ", startedTimestamp=" + startedTimestamp +
+            ", score=" + score +
+            '}';
+    }
 }
