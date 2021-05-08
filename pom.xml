@@ -75,6 +75,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- required to run cucumber tests with junit -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

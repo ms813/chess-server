@@ -1,4 +1,4 @@
-package com.ms813.chess;
+package com.ms813.chess.it;
 
 import com.ms813.chess.entity.ChessGame;
 import com.ms813.chess.model.NewGameRequest;

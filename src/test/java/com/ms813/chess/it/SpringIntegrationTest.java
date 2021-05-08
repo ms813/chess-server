@@ -1,4 +1,4 @@
-package com.ms813.chess;
+package com.ms813.chess.it;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
