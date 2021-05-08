@@ -34,15 +34,14 @@ public class LocalTestUtil {
         ChessGame game = localTestUtil.createGame();
 
         for (String move : moves) {
-            localTestUtil.putMove(game.getId(), move);
-            game = localTestUtil.getGame(game.getId());
+            game = localTestUtil.makeMove(game.getId(), move);
             logger.info("Got game after move {}", move);
             logger.info("\n{}", game.getBoardFromWhiteViewPoint());
         }
         localTestUtil.resign(game.getId(), Side.WHITE);
 
         // not allowed since game has ended
-        localTestUtil.putMove(game.getId(), "a1");
+        localTestUtil.makeMove(game.getId(), "a1");
 
     }
 
@@ -68,16 +67,17 @@ public class LocalTestUtil {
         return response.getBody();
     }
 
-    public void putMove(final long gameId, final String moveSAN) {
+    public ChessGame makeMove(final long gameId, final String moveSAN) {
         final String moveUrl = String.format("%s/%d/move", url, gameId);
         try {
-            restTemplate.put(moveUrl, moveSAN);
+            return restTemplate.postForEntity(moveUrl, moveSAN, ChessGame.class).getBody();
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            return this.getGame(gameId);
         }
     }
 
     public void resign(long id, Side side) {
-        restTemplate.put(url + "/" + id + "/resign", side);
+        restTemplate.postForEntity(url + "/" + id + "/resign", side, ChessGame.class);
     }
 }

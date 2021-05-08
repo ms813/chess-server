@@ -4,7 +4,7 @@ import com.github.bhlangonijr.chesslib.Side;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import com.ms813.chess.entity.ChessGame;
 import com.ms813.chess.exception.GameNotFoundException;
-import com.ms813.chess.exception.IllegalMoveException;
+import com.ms813.chess.exception.InactiveGameException;
 import com.ms813.chess.model.NewGameRequest;
 import com.ms813.chess.service.GameService;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class GameController {
      */
     @PostMapping
     public ChessGame createGame(@RequestBody final NewGameRequest newGameRequest) {
-        if(newGameRequest.getWhitePlayerName().isBlank() || newGameRequest.getBlackPlayerName().isBlank()){
+        if (newGameRequest.getWhitePlayerName().isBlank() || newGameRequest.getBlackPlayerName().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to create game - one or both player's names were blank!");
         }
         return this.gameService.createGame(newGameRequest);
@@ -54,12 +54,12 @@ public class GameController {
      * @param id      the game ID on which to make the move
      * @param moveSAN a SAN string representing the move to be made
      * @return the game after the move has been made
-     * @throws IllegalMoveException    if the supplied move is illegal in the context of the game, including trying to apply moves to a finished game
-     * @throws ResponseStatusException if the supplied move is syntactically incorrect
+     * @throws InactiveGameException   if trying to apply moves to a finished game
+     * @throws ResponseStatusException if the supplied move is syntactically incorrect, or illegal in context of the game
      * @throws GameNotFoundException   if the supplied game ID cannot be found
      */
-    @PutMapping("/{id}/move")
-    public ChessGame makeMove(@PathVariable final long id, @RequestBody final String moveSAN) throws GameNotFoundException {
+    @PostMapping("/{id}/move")
+    public ChessGame makeMove(@PathVariable final long id, @RequestBody final String moveSAN) {
         try {
             return this.gameService.makeMove(id, moveSAN);
         } catch (final MoveConversionException e) {
@@ -70,12 +70,13 @@ public class GameController {
 
     /**
      * Immediately forfeit the game so that the other player wins.
-     * @param id the game ID to apply the resignation to
+     *
+     * @param id   the game ID to apply the resignation to
      * @param side the colour of the player resigning
      * @return the final game state after the resignation
      */
-    @PutMapping("/{id}/resign")
-    public ChessGame  resign(@PathVariable final long id, @RequestBody final Side side){
+    @PostMapping("/{id}/resign")
+    public ChessGame resign(@PathVariable final long id, @RequestBody final Side side) {
         return this.gameService.resign(id, side);
     }
 }
