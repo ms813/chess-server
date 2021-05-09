@@ -12,6 +12,14 @@ To run the jar, either use your favourite IDE, or run:
 java -jar target/chess-0.0.1-SNAPSHOT.jar
 ```
 
+To run the front end:
+```
+cd web/chess
+npm i
+npm start
+```
+then open your browser at http://localhost:4200
+
 To access the in-memory h2 console, go to http://localhost:8080/h2-console and log in with the following credentials:
 * JDBC URL = `jdbc:h2:mem:testdb`
 * User Name = `sa`

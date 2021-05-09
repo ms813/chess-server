@@ -32,7 +32,7 @@ export class GameService {
   private dataToChessGameMapper = map((response: IChessGame) => new ChessGame(response));
 
   public makeMove(id: number, san: string): Observable<ChessGame> {
-    console.log(`Posting move ${san} for game ${id}`)
+    console.debug(`Posting move ${san} for game ${id}`)
     return this.http.post<IChessGame>(`${environment.gameApiUrl}/${id}/move`, san).pipe(
       this.dataToChessGameMapper,
     );
