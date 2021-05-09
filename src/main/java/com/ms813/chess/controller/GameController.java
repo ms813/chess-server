@@ -30,7 +30,7 @@ public class GameController {
      */
     @PostMapping
     public ChessGame createGame(@RequestBody final NewGameRequest newGameRequest) {
-        if (newGameRequest.getWhitePlayerName().isBlank() || newGameRequest.getBlackPlayerName().isBlank()) {
+        if (null == newGameRequest || !newGameRequest.isValid()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to create game - one or both player's names were blank!");
         }
         return this.gameService.createGame(newGameRequest);

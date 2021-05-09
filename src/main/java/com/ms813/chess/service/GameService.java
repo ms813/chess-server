@@ -8,10 +8,14 @@ import com.ms813.chess.exception.GameNotFoundException;
 import com.ms813.chess.exception.InactiveGameException;
 import com.ms813.chess.model.NewGameRequest;
 import com.ms813.chess.repository.GameRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
+
+    private static final Logger logger = LoggerFactory.getLogger(GameService.class);
 
     private final GameRepository gameRepository;
 
@@ -25,12 +29,16 @@ public class GameService {
     }
 
     public ChessGame createGame(final NewGameRequest newGameRequest) {
-        final ChessGame chessGame = new ChessGame(
+        ChessGame game = new ChessGame(
             newGameRequest.getWhitePlayerName(),
             newGameRequest.getBlackPlayerName()
         );
 
-        return this.gameRepository.save(chessGame);
+        game = this.gameRepository.save(game);
+
+        logger.info("Successfully created new game, id={}", game.getId());
+        return game;
+
     }
 
     public ChessGame makeMove(final long gameId, final String moveSAN) {

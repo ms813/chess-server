@@ -94,6 +94,30 @@ class GameControllerTest {
     }
 
     @Test
+    public void createNewGameFailsIfWhitePlayerNameIsNull() throws Exception {
+        final NewGameRequest newGameRequest = new NewGameRequest(null, "Bobby Fischer");
+        final String newGameRequestJson = mapper.writeValueAsString(newGameRequest);
+
+        this.mockMvc.perform(post("/game")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(newGameRequestJson))
+            .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(gameService);
+    }
+
+    @Test
+    public void createNewGameFailsIfRequestIsNull() throws Exception {
+        final String newGameRequestJson = mapper.writeValueAsString(null);
+        this.mockMvc.perform(post("/game")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(newGameRequestJson))
+            .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(gameService);
+    }
+
+    @Test
     public void createNewGameFailsIfWhitePlayerNameIsEmpty() throws Exception {
         final NewGameRequest newGameRequest = new NewGameRequest("", "Bobby Fischer");
         final String newGameRequestJson = mapper.writeValueAsString(newGameRequest);

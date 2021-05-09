@@ -1,12 +1,16 @@
 package com.ms813.chess.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewGameRequest {
     private String whitePlayerName;
     private String blackPlayerName;
 
-    public NewGameRequest() {}
+    public NewGameRequest() {
+    }
 
     public NewGameRequest(final String whitePlayerName, final String blackPlayerName) {
         this.whitePlayerName = whitePlayerName;
@@ -48,5 +52,12 @@ public class NewGameRequest {
             "whitePlayerName='" + whitePlayerName + '\'' +
             ", blackPlayerName='" + blackPlayerName + '\'' +
             '}';
+    }
+
+    public boolean isValid() {
+        return !(whitePlayerName == null
+            || blackPlayerName == null
+            || whitePlayerName.isBlank()
+            || blackPlayerName.isBlank());
     }
 }

@@ -1,0 +1,26 @@
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+#chess-board {
+  width: calc(min(100vw, 100vh) - 140px);
+  margin: 0 auto;
+}
+
+.rank-label, .file-label {
+  background: unset !important;
+}
+
+.mat-grid-tile.black {
+  background-color: black !important;
+}
+
+.mat-grid-tile.white {
+  background-color: white !important;
+}
+
+.mat-grid-tile-footer.white, .mat-grid-tile-header.white, .mat-grid-tile.white {
+  color: black
+}
+
+.mat-grid-tile-footer.black, .mat-grid-tile-header.black, .mat-grid-tile.black {
+  color: white
+}
