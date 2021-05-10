@@ -1,36 +1,53 @@
-<div style="text-align: center">
-  <mat-form-field appearance="fill">
-    <mat-label>Next Move:</mat-label>
-    <input matInput [(ngModel)]="nextMoveSAN" required #nextMove="ngModel"
-           id="nextMove" name="nextMove" [disabled]="buttonDisabled">
-    <mat-error *ngIf="!isValidMove(nextMoveSAN) ">
-      Move {{nextMoveSAN}} is invalid
-    </mat-error>
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="makeMove(nextMoveSAN)">Enter</button>
-</div>
-<div id="chess-board" *ngIf="chessGame">
-  <mat-grid-list cols="8">
-    <ng-container *ngFor="let rank of ranks; let y = index">
-      <ng-container *ngFor="let file of files; let x = index">
-        <mat-grid-tile [ngClass]="(x + y) % 2 === 0 ? 'white' : 'black'">
-          <mat-grid-tile-footer [ngClass]="(x + y) % 2 === 0? 'white' : 'black'" class="file-label"
-                                *ngIf="rank === '1'">{{file}}</mat-grid-tile-footer>
-          <mat-grid-tile-header [ngClass]="(x + y) % 2 === 0? 'white' : 'black'" class="rank-label"
-                                *ngIf="file === 'a'">{{rank}}</mat-grid-tile-header>
-          <ng-container *ngIf="chess.board()">
-            <div [ngSwitch]="getPiece(y,x)">
-              <app-king *ngSwitchCase="'k'" [side]="getColour(y,x)"></app-king>
-              <app-queen *ngSwitchCase="'q'" [side]="getColour(y,x)"></app-queen>
-              <app-bishop *ngSwitchCase="'b'" [side]="getColour(y,x)"></app-bishop>
-              <app-knight *ngSwitchCase="'n'" [side]="getColour(y,x)"></app-knight>
-              <app-rook *ngSwitchCase="'r'" [side]="getColour(y,x)"></app-rook>
-              <app-pawn *ngSwitchCase="'p'" [side]="getColour(y,x)"></app-pawn>
-            </div>
-          </ng-container>
+<div class="container-fluid">
+  <div class="row">
+    <div id="chess-board" class="col-9" *ngIf="chessGame">
+      <mat-grid-list cols="8">
+        <ng-container *ngFor="let rank of ranks; let y = index">
+          <ng-container *ngFor="let file of files; let x = index">
+            <mat-grid-tile [ngClass]="(x + y) % 2 === 0 ? 'white' : 'black'">
+              <mat-grid-tile-footer [ngClass]="(x + y) % 2 === 0? 'white' : 'black'" class="file-label"
+                                    *ngIf="rank === '1'">{{file}}</mat-grid-tile-footer>
+              <mat-grid-tile-header [ngClass]="(x + y) % 2 === 0? 'white' : 'black'" class="rank-label"
+                                    *ngIf="file === 'a'">{{rank}}</mat-grid-tile-header>
+              <ng-container *ngIf="chess.board()">
+                <div [ngSwitch]="getPiece(y,x)">
+                  <app-king *ngSwitchCase="'k'" [side]="getColour(y,x)"></app-king>
+                  <app-queen *ngSwitchCase="'q'" [side]="getColour(y,x)"></app-queen>
+                  <app-bishop *ngSwitchCase="'b'" [side]="getColour(y,x)"></app-bishop>
+                  <app-knight *ngSwitchCase="'n'" [side]="getColour(y,x)"></app-knight>
+                  <app-rook *ngSwitchCase="'r'" [side]="getColour(y,x)"></app-rook>
+                  <app-pawn *ngSwitchCase="'p'" [side]="getColour(y,x)"></app-pawn>
+                </div>
+              </ng-container>
 
-        </mat-grid-tile>
-      </ng-container>
-    </ng-container>
-  </mat-grid-list>
+            </mat-grid-tile>
+          </ng-container>
+        </ng-container>
+      </mat-grid-list>
+    </div>
+    <div class="col-3">
+      <div class="next-move-container align-items-center ustify-content-center row">
+        <mat-form-field appearance="fill" class="col-9">
+          <mat-label>Enter Move:</mat-label>
+          <input matInput [(ngModel)]="nextMoveSAN" required #nextMove="ngModel"
+                 id="nextMove" name="nextMove" [disabled]="buttonDisabled">
+        </mat-form-field>
+        <button class="col-3" mat-raised-button color="primary" (click)="makeMove(nextMoveSAN)"
+                [disabled]="buttonDisabled"> Enter
+        </button>
+
+        <a mat-button class="col-12" href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" target="_blank">
+          Read more on SAN notation
+        </a>
+
+        <mat-error *ngIf="!isValidMove(nextMoveSAN) && (nextMove.dirty || nextMove.touched && nextMoveSAN)" class="col-12" style="text-align: center" >
+          Move {{nextMoveSAN}} is invalid
+        </mat-error>
+      </div>
+      <mat-list>
+        <mat-list-item *ngFor="let move of displayMoves" role="listitem">{{move}}</mat-list-item>
+      </mat-list>
+    </div>
+  </div>
 </div>
+

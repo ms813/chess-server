@@ -1,23 +1,29 @@
 <div>
-  <form (ngSubmit)="form.form.valid && newGame()" #form="ngForm">
-    <mat-form-field appearance="fill">
-      <mat-label>White Player Name</mat-label>
-      <input matInput [(ngModel)]="newGameRequest.whitePlayerName" required #whiteValidation="ngModel"
-             id="whitePlayerName" name="whitePlayerName">
-      <mat-error
-        *ngIf="whiteValidation.invalid && (whiteValidation.dirty || whiteValidation.touched || form.submitted)">
-        White player name is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Black Player Name</mat-label>
-      <input matInput [(ngModel)]="newGameRequest.blackPlayerName" required #blackValidation="ngModel"
-             id="blackPlayerName" name="blackPlayerName">
-      <mat-error
-        *ngIf="blackValidation.invalid && (blackValidation.dirty || blackValidation.touched || form.submitted)">
-        Black player name is required
-      </mat-error>
-    </mat-form-field>
-    <button mat-button color="primary">New Game</button>
+  <form (ngSubmit)="form.form.valid && newGame()" #form="ngForm" class="container-fluid">
+    <div class="row justify-content-center">
+      <mat-form-field appearance="fill" class="col-xl-3 col-lg-6 col-md-6 col-sm-9 col-xs-12">
+        <mat-label>White Player Name</mat-label>
+        <input matInput [(ngModel)]="newGameRequest.whitePlayerName" required #whiteValidation="ngModel"
+               id="whitePlayerName" name="whitePlayerName">
+        <mat-error
+          *ngIf="whiteValidation.invalid && (whiteValidation.dirty || whiteValidation.touched || form.submitted)">
+          White player name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row justify-content-center">
+      <mat-form-field appearance="fill" class="col-xl-3 col-lg-6 col-md-6 col-sm-9 col-xs-12">
+        <mat-label>Black Player Name</mat-label>
+        <input matInput [(ngModel)]="newGameRequest.blackPlayerName" required #blackValidation="ngModel"
+               id="blackPlayerName" name="blackPlayerName">
+        <mat-error
+          *ngIf="blackValidation.invalid && (blackValidation.dirty || blackValidation.touched || form.submitted)">
+          Black player name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row justify-content-center">
+      <button mat-button color="primary" class="col-xl-3 col-lg-6 col-md-6 col-sm-9 col-xs-12">New Game</button>
+    </div>
   </form>
 </div>

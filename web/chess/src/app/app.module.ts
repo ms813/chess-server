@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ChessGameComponent} from './chess-game/chess-game.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {PiecesModule} from './pieces/pieces.module';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {PiecesModule} from './pieces/pieces.module';
     FormsModule,
     HttpClientModule,
     MatGridListModule,
-    PiecesModule
+    PiecesModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
